@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 void main() {
-  runApp( MaterialApp(
+  runApp( const MaterialApp(
       home:Level1 ()
   )
   );
@@ -20,6 +21,11 @@ class Level1 extends StatefulWidget {
 class _Level1State extends State<Level1> {
   int flag=1;
   double opacityState=1;
+  List<Color> randColor = [Colors.red,Colors.yellow,Colors.blue,Colors.green,Colors.orange,Colors.brown,Colors.deepPurple,Colors.lightGreen,Colors.teal];
+  Color correctColor=Colors.red;
+  int futureFlag=1;
+  int highScore=0;
+  Text error=Text("Wrong Choice",style: GoogleFonts.redHatMono(fontSize: 25),);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,7 +33,12 @@ class _Level1State extends State<Level1> {
           data:const MediaQueryData(),
           child: Scaffold(
               appBar: AppBar(
-                title: const Text("COLOR PICK"),
+                title: Row(
+                  children: [
+                    const Text("COLOR PICK"),Text("SCORE:${highScore.toString()}"),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                ),
                 backgroundColor: correctColor,
               ),
               body:
@@ -59,7 +70,7 @@ class _Level1State extends State<Level1> {
       // print(flag);
       if(futureFlag==0){
         flag=0;
-        error=Text("Time exceeded");
+        error=Text("Time exceeded",style: GoogleFonts.redHatMono(fontSize: 25));
         doStuff();
       }
     });
@@ -81,11 +92,7 @@ class _Level1State extends State<Level1> {
     }
 
   }
-  List<Color> randColor = [Colors.red,Colors.yellow,Colors.blue,Colors.green,Colors.orange,Colors.brown,Colors.deepPurple,Colors.lightGreen,Colors.teal];
-  Color correctColor=Colors.red;
 
-  int futureFlag=1;
-  Text error=Text("Wrong Choice");
 
   Column level1(double deviceWidth,double deviceHeight) {
 
@@ -125,7 +132,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[0] == correctColor) {
                             flag=1;
                             futureFlag=1;
-                            int i=0;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -151,6 +158,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[1] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -178,6 +186,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[2] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -207,6 +216,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[3] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -232,6 +242,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[4] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -257,6 +268,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[5] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -286,6 +298,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[6] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -311,6 +324,7 @@ class _Level1State extends State<Level1> {
                           if (randColor[7] == correctColor) {
                             flag=1;
                             futureFlag=1;
+                            highScore++;
                             doStuff();
                             // _timer.cancel();
                             timer();
@@ -335,8 +349,9 @@ class _Level1State extends State<Level1> {
                         onTap: () {
                           if (randColor[8] == correctColor) {
                             flag=1;
-                            doStuff();
                             futureFlag=1;
+                            highScore++;
+                            doStuff();
                             // _timer.cancel();
                             timer();
                           }
@@ -359,8 +374,34 @@ class _Level1State extends State<Level1> {
       futureFlag=1;
         return Column(
           children: [
-            Container(child: error),
+            Row(
+              children: [
+                Container(child: error,),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: (){
+                      setState(() {
+                        flag=1;
+                        opacityState=1;
+                        randColor = [Colors.red,Colors.yellow,Colors.blue,Colors.green,Colors.orange,Colors.brown,Colors.deepPurple,Colors.lightGreen,Colors.teal];
+                        correctColor=Colors.red;
+                        futureFlag=1;
+                        highScore=0;
+                        error=Text("Wrong Choice",style: GoogleFonts.redHatMono(fontSize: 25),);
+                      });
+                },
+                  child: Text("Play Again?",style: GoogleFonts.redHatMono(fontSize: 16)),
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(correctColor),),
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            )
           ],
+          mainAxisAlignment: MainAxisAlignment.center,
         );
     }
   }
